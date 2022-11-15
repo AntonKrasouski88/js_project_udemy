@@ -26,7 +26,15 @@ const movieDB = {
 
 const advertisingBlock = document.querySelector('.promo__adv');
 const imgAdvertisigBlock = advertisingBlock.querySelectorAll('img');
+const promoGenre = document.querySelector('.promo__genre');
+const newPromoGenre = document.createElement('div');
+const promoTitle = document.querySelector('.promo__title');
 
 
 imgAdvertisigBlock.forEach(item => item.remove());
+promoGenre.remove();
+newPromoGenre.textContent = "Драма";
+promoTitle.before(newPromoGenre);
+newPromoGenre.classList.add('promo__genre');
+
 
