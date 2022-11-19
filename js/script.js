@@ -49,24 +49,61 @@ document.addEventListener('DOMContentLoaded', () => {
     const imgAdvertisigBlock = advertisingBlock.querySelectorAll('img');
     const promoGenre = document.querySelector('.promo__genre');
     //const newPromoGenre = document.createElement('div');
-    const promoTitle = document.querySelector('.promo__title');
     const promoBG = document.querySelector('.promo__bg');
     const promoInterectiveList = document.querySelector('.promo__interactive-list');
-    
-    imgAdvertisigBlock.forEach(item => item.remove());
+    const addForm = document.querySelector('.add');
+    const addInput = addForm.querySelector('.adding__input');
+    const checkbox = addForm.querySelector('[type="checkbox"]');
+    const btnForm = addForm.querySelector('button');
+
+    addForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const newFilm = addInput.value;
+        const favorit = checkbox.checked;
+
+        movieDB.push(newFilm).sort();
+
+    });
+
+    function removeItem(data) {
+        data.forEach(item => item.remove());
+    }
+    removeItem(imgAdvertisigBlock);
+
     //promoGenre.remove();
     //newPromoGenre.textContent = "Драма";
     //promoTitle.before(newPromoGenre);
     //newPromoGenre.classList.add('promo__genre');
-    promoGenre.textContent = 'Драма';
+    
+    function changeText (item, text) {
+        item.textContent = text;
+    }
+
+    changeText(promoGenre,'Драма');
+
+
     promoBG.style.backgroundImage = 'url("img/bg.jpg")';
     
-    promoInterectiveList.innerHTML = '';
     
-    movieDB.movies.forEach((item, i) => {
+    
+    function createMovieList(data, selector) {
+        
+        selector.innerHTML = '';
+
+        data.forEach((item, i) => {
+            selector.innerHTML += `<li class="promo__interactive-item">${i+1}. ${item}
+            <div class="delete"></div>
+        </li>`;
+        }); 
+    }
+    
+    createMovieList(movieDB.movies, promoInterectiveList);
+
+   /*  movieDB.movies.forEach((item, i) => {
         promoInterectiveList.innerHTML += `<li class="promo__interactive-item">${i+1}. ${item}
         <div class="delete"></div>
     </li>`;
-    });
-    
+    }); */
 });
+
