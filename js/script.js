@@ -44,30 +44,32 @@ document.addEventListener('DOMContentLoaded', () => {
     
   
     
-    const advertisingBlock = document.querySelector('.promo__adv');
-    const imgAdvertisigBlock = advertisingBlock.querySelectorAll('img');
-    const promoGenre = document.querySelector('.promo__genre');
-    //const newPromoGenre = document.createElement('div');
-    const promoBG = document.querySelector('.promo__bg');
-    const promoInterectiveList = document.querySelector('.promo__interactive-list');
-    const addForm = document.querySelector('.add');
-    const addInput = addForm.querySelector('.adding__input');
-    const checkbox = addForm.querySelector('[type="checkbox"]');
+    const advertisingBlock = document.querySelector('.promo__adv'),
+          imgAdvertisigBlock = advertisingBlock.querySelectorAll('img'),
+          promoGenre = document.querySelector('.promo__genre'),
+          promoBG = document.querySelector('.promo__bg'),
+          promoInterectiveList = document.querySelector('.promo__interactive-list'),
+          addForm = document.querySelector('.add'),
+          addInput = addForm.querySelector('.adding__input'),
+          checkbox = addForm.querySelector('[type="checkbox"]');
 
-    const sortData = (arr) => {
-        arr.sort();
-    };
     
     
 
+    
     addForm.addEventListener('submit', (event) => {
         event.preventDefault();
 
-        const newFilm = addInput.value;
+        let newFilm = addInput.value;
         const favorit = checkbox.checked;
 
-        movieDB.movies.push(newFilm);
-        sortData(movieDB.movies);
+        if(newFilm) {
+            if (newFilm.length > 21) {
+                newFilm = `${newFilm.substr(0,21)}...`;
+            }
+            movieDB.movies.push(newFilm);
+            sortData(movieDB.movies);
+        }
         
         createMovieList(movieDB.movies, promoInterectiveList);
 
@@ -75,20 +77,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
-    function removeItem(data) {
+    const sortData = (arr) => {
+        arr.sort();
+    };
+
+    const removeItem = (data) => {
         data.forEach(item => item.remove());
-    }
+    };
    
-   
-    function changeText (item, text) {
+    const changeText = (item, text) => {
         item.textContent = text;
-    }
+    };
     
-    function changePromo (selector, imageAdress) {
+    const changePromo = (selector, imageAdress) => {
         selector.style.backgroundImage = imageAdress;
-    }
+    };
     
-    function createMovieList(data, selector) {
+    const createMovieList = (data, selector) => {
         
         selector.innerHTML = '';
 
@@ -97,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="delete"></div>
         </li>`;
         }); 
-    }
+    };
 
 
     sortData(movieDB.movies);
@@ -105,11 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
     changeText(promoGenre,'Драма');
     changePromo(promoBG, 'url("img/bg.jpg")');
     createMovieList(movieDB.movies, promoInterectiveList);
-   /*  movieDB.movies.forEach((item, i) => {
-        promoInterectiveList.innerHTML += `<li class="promo__interactive-item">${i+1}. ${item}
-        <div class="delete"></div>
-    </li>`;
-    }); */
 });
 
 
