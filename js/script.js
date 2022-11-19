@@ -42,8 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
     };
     
-    movieDB.movies.sort();
-    console.log(movieDB.movies);
+  
     
     const advertisingBlock = document.querySelector('.promo__adv');
     const imgAdvertisigBlock = advertisingBlock.querySelectorAll('img');
@@ -54,7 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const addForm = document.querySelector('.add');
     const addInput = addForm.querySelector('.adding__input');
     const checkbox = addForm.querySelector('[type="checkbox"]');
-    const btnForm = addForm.querySelector('button');
+
+    const sortData = (arr) => {
+        arr.sort();
+    };
+    
+    
 
     addForm.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -62,30 +66,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const newFilm = addInput.value;
         const favorit = checkbox.checked;
 
-        movieDB.push(newFilm).sort();
+        movieDB.movies.push(newFilm);
+        sortData(movieDB.movies);
+        
+        createMovieList(movieDB.movies, promoInterectiveList);
+
+        event.target.reset();
 
     });
 
     function removeItem(data) {
         data.forEach(item => item.remove());
     }
-    removeItem(imgAdvertisigBlock);
-
-    //promoGenre.remove();
-    //newPromoGenre.textContent = "Драма";
-    //promoTitle.before(newPromoGenre);
-    //newPromoGenre.classList.add('promo__genre');
-    
+   
+   
     function changeText (item, text) {
         item.textContent = text;
     }
-
-    changeText(promoGenre,'Драма');
-
-
-    promoBG.style.backgroundImage = 'url("img/bg.jpg")';
     
-    
+    function changePromo (selector, imageAdress) {
+        selector.style.backgroundImage = imageAdress;
+    }
     
     function createMovieList(data, selector) {
         
@@ -97,13 +98,18 @@ document.addEventListener('DOMContentLoaded', () => {
         </li>`;
         }); 
     }
-    
-    createMovieList(movieDB.movies, promoInterectiveList);
 
+
+    sortData(movieDB.movies);
+    removeItem(imgAdvertisigBlock);
+    changeText(promoGenre,'Драма');
+    changePromo(promoBG, 'url("img/bg.jpg")');
+    createMovieList(movieDB.movies, promoInterectiveList);
    /*  movieDB.movies.forEach((item, i) => {
         promoInterectiveList.innerHTML += `<li class="promo__interactive-item">${i+1}. ${item}
         <div class="delete"></div>
     </li>`;
     }); */
 });
+
 
