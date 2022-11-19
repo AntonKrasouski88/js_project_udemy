@@ -51,8 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
           promoInterectiveList = document.querySelector('.promo__interactive-list'),
           addForm = document.querySelector('.add'),
           addInput = addForm.querySelector('.adding__input'),
-          checkbox = addForm.querySelector('[type="checkbox"]'),
-          btnDelet = addForm.querySelector('button');
+          checkbox = addForm.querySelector('[type="checkbox"]');
 
     
     
